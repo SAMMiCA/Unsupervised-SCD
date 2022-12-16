@@ -1,0 +1,183 @@
+# example (pretrained, training and test)
+python train_GLUChangeNet.py --training_data_dir ../../E2EChangeDet/dataset/train_datasets \
+--evaluation_data_dir ../../E2EChangeDet/dataset/test_datasets \
+--train_img_size 520 520 --test_img_size 520 520 --n_threads 8 \
+--batch_size 16 --test_batch_size 16 --plot_interval 10 --lr 0.0002 \
+--split_ratio 0.9 --split2_ratio 0.5 \
+--n_epoch 25 \
+--resume "" \
+--trainset_list synthetic changesim_normal \
+--testset_list changesim_normal \
+--name_exp joint_synthetic_changesim \
+--pretrained ""
+# --pretrained ../../E2EChangeDet/GLU-ChangeNet-Pytorch/pre_trained_models/synthetic_lr0.0002_epoch_25.pth
+
+# dense cl weights
+python train_GLUChangeNet.py --training_data_dir ../../E2EChangeDet/dataset/train_datasets \
+--evaluation_data_dir ../../E2EChangeDet/dataset/test_datasets \
+--train_img_size 520 520 --test_img_size 520 520 --n_threads 8 \
+--batch_size 24 --test_batch_size 24 --plot_interval 10 --lr 0.00005 \
+--split_ratio 0.065 --split2_ratio 0.0001 \
+--n_epoch 25 \
+--resume "" \
+--pyramid_type "ResNet" \
+--dense_cl \
+--trainset_list synthetic changesim_normal \
+--testset_list changesim_normal \
+--name_exp joint_syn_csnorm \
+--pretrained ""
+
+# dense cl weights
+python train_GLUChangeNet.py --training_data_dir ../../E2EChangeDet/dataset/train_datasets \
+--evaluation_data_dir ../../E2EChangeDet/dataset/test_datasets \
+--train_img_size 520 520 --test_img_size 520 520 --n_threads 8 \
+--batch_size 24 --test_batch_size 24 --plot_interval 10 --lr 0.0002 \
+--split_ratio 0.9999 --split2_ratio 0.5 \
+--n_epoch 25 \
+--resume "" \
+--pyramid_type "ResNet" \
+--trainset_list synthetic \
+--testset_list changesim_normal \
+--name_exp syn_res18 \
+--pretrained ""
+
+# test
+python train_GLUChangeNet.py --training_data_dir ../../E2EChangeDet/dataset/train_datasets \
+--evaluation_data_dir ../../E2EChangeDet/dataset/test_datasets \
+--train_img_size 520 520 --test_img_size 520 520 --n_threads 8 \
+--batch_size 16 --test_batch_size 16 --plot_interval 10 --lr 0.0001 \
+--split_ratio 0.9999 --split2_ratio 0.5 \
+--n_epoch 25 \
+--resume "" \
+--pyramid_type "ResNet" \
+--trainset_list synthetic \
+--testset_list changesim_dust \
+--name_exp syn_res18_test \
+--pretrained "./snapshots/syn_res18_cl/epoch_8.pth" \
+--test_only 
+
+# test (VGG16)
+python train_GLUChangeNet.py --training_data_dir ../../E2EChangeDet/dataset/train_datasets \
+--evaluation_data_dir ../../E2EChangeDet/dataset/test_datasets \
+--train_img_size 520 520 --test_img_size 520 520 --n_threads 8 \
+--batch_size 24 --test_batch_size 24 --plot_interval 10 --lr 0.0002 \
+--split_ratio 0.9999 --split2_ratio 0.5 \
+--n_epoch 25 \
+--resume "" \
+--trainset_list synthetic \
+--testset_list changesim_normal \
+--name_exp syn_resnet_densecl \
+--pretrained "../../E2EChangeDet/GLU-ChangeNet-Pytorch/pre_trained_models/synthetic_lr0.0002_epoch_25.pth" \
+--test_only 
+
+# train (VGG16)
+python train_GLUChangeNet.py --training_data_dir ../../E2EChangeDet/dataset/train_datasets \
+--evaluation_data_dir ../../E2EChangeDet/dataset/test_datasets \
+--train_img_size 520 520 --test_img_size 520 520 --n_threads 8 \
+--batch_size 16 --test_batch_size 16 --plot_interval 10 --lr 0.0001 \
+--split_ratio 0.9999 --split2_ratio 0.5 \
+--n_epoch 25 \
+--resume "" \
+--cl \
+--trainset_list synthetic \
+--testset_list changesim_normal \
+--name_exp syn_vgg16_cl \
+--pretrained ""
+
+# train (res18)
+python train_GLUChangeNet.py --training_data_dir ../../E2EChangeDet/dataset/train_datasets \
+--evaluation_data_dir ../../E2EChangeDet/dataset/test_datasets \
+--train_img_size 520 520 --test_img_size 520 520 --n_threads 8 \
+--batch_size 16 --test_batch_size 16 --plot_interval 10 --lr 0.0001 \
+--split_ratio 0.9999 --split2_ratio 0.5 \
+--n_epoch 25 \
+--resume "" \
+--cl 4 \
+--pyramid_type "ResNet" \
+--trainset_list synthetic \
+--testset_list changesim_normal \
+--name_exp syn_res18_cl2 \
+--pretrained ""
+
+# test (res18)
+python train_GLUChangeNet.py --training_data_dir ../../E2EChangeDet/dataset/train_datasets \
+--evaluation_data_dir ../../E2EChangeDet/dataset/test_datasets \
+--train_img_size 520 520 --test_img_size 520 520 --n_threads 8 \
+--batch_size 16 --test_batch_size 16 --plot_interval 10 --lr 0.0001 \
+--split_ratio 0.9999 --split2_ratio 0.5 \
+--n_epoch 25 \
+--resume "" \
+--cl 4 \
+--pyramid_type "ResNet" \
+--trainset_list synthetic \
+--testset_list changesim_dark \
+--name_exp syn_res18_cl \
+--pretrained "./snapshots/syn_res18_ft/epoch_23.pth" \
+--test_only
+
+# train (finetune res18-synthetic-cl4)
+python train_GLUChangeNet.py --training_data_dir ../../E2EChangeDet/dataset/train_datasets \
+--evaluation_data_dir ../../E2EChangeDet/dataset/test_datasets \
+--train_img_size 520 520 --test_img_size 520 520 --n_threads 4 \
+--batch_size 16 --test_batch_size 16 --plot_interval 10 --lr 0.0001 \
+--split_ratio 0.065 --split2_ratio 0.0001 \
+--n_epoch 25 \
+--resume "" \
+--cl 0 \
+--pyramid_type "ResNet" \
+--trainset_list synthetic changesim_normal \
+--testset_list changesim_normal \
+--name_exp syn_res18_ft_after_cl \
+--pretrained "./snapshots/syn_res18_cl/epoch_8.pth"
+
+# train (USL)
+python train_GLUChangeNet.py --training_data_dir ../../E2EChangeDet/dataset/train_datasets \
+--evaluation_data_dir ../../E2EChangeDet/dataset/test_datasets \
+--train_img_size 520 520 --test_img_size 520 520 --n_threads 4 \
+--batch_size 16 --test_batch_size 16 --plot_interval 10 --lr 0.0001 \
+--split_ratio 0.9999 --split2_ratio 0.5 \
+--n_epoch 50 \
+--resume "" \
+--cl 0 \
+--pyramid_type "ResNet" \
+--trainset_list changesim_normal \
+--testset_list changesim_normal \
+--name_exp csnorm_res18_usl2 \
+--usl \
+--sg_dec \
+--pretrained ""
+
+# train (SL --> SL + USL)
+python train_GLUChangeNet.py --training_data_dir ../../E2EChangeDet/dataset/train_datasets \
+--evaluation_data_dir ../../E2EChangeDet/dataset/test_datasets \
+--train_img_size 520 520 --test_img_size 520 520 --n_threads 4 \
+--batch_size 16 --test_batch_size 16 --plot_interval 10 --lr 0.0001 \
+--split_ratio 0.065 --split2_ratio 0.0001 \
+--n_epoch 50 \
+--resume "" \
+--cl 0 \
+--pyramid_type "ResNet" \
+--trainset_list synthetic changesim_normal \
+--testset_list changesim_normal \
+--name_exp csnorm_res18_usl4 \
+--usl \
+--sg_dec \
+--scheduler cosine_anneal \
+--pretrained ""
+
+python train_GLUChangeNet.py --training_data_dir ../../E2EChangeDet/dataset/train_datasets \
+--evaluation_data_dir ../../E2EChangeDet/dataset/test_datasets \
+--train_img_size 520 520 --test_img_size 520 520 --n_threads 4 \
+--batch_size 16 --test_batch_size 16 --plot_interval 10 --lr 0.0001 \
+--split_ratio 0.9999 --split2_ratio 0.5 \
+--n_epoch 50 \
+--resume "" \
+--cl 0 \
+--pyramid_type "ResNet" \
+--trainset_list changesim_normal \
+--testset_list changesim_normal \
+--name_exp csnorm_res18_usl2 \
+--usl \
+--sg_dec \
+--pretrained "./snapshots/csnorm_res18_usl3/epoch_33.pth" \
+--test_only
